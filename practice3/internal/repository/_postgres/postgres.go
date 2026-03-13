@@ -3,14 +3,15 @@ package postgres
 import (
 	"context"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 
-	"github.com/jmoiron/sqlx"
 	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/jmoiron/sqlx"
 
 	"practice3/pkg/modules"
 )
@@ -62,7 +63,6 @@ func AutoMigrate(db *sqlx.DB, cfg modules.PostgreConfig) error {
 		return fmt.Errorf("migrate.New: %w", err)
 	}
 
-	
 	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
 		return fmt.Errorf("m.Up: %w", err)
 	}
@@ -70,14 +70,22 @@ func AutoMigrate(db *sqlx.DB, cfg modules.PostgreConfig) error {
 	return nil
 }
 
+func env(key, fallback string) string {
+	v := os.Getenv(key)
+	if v == "" {
+		return fallback
+	}
+	return v
+}
+
 func DefaultPostgresConfig() modules.PostgreConfig {
 	return modules.PostgreConfig{
-		Host:        "localhost",
-		Port:        "5432",
-		Username:    "postgres",
-		Password:    "postgres",
-		DBName:      "mydb",
-		SSLMode:     "disable",
+		Host:        env("DB_HOST", "localhost"),
+		Port:        env("DB_PORT", "5432"),
+		Username:    env("DB_USER", "postgres"),
+		Password:    env("DB_PASSWORD", "postgres"),
+		DBName:      env("DB_NAME", "mydb"),
+		SSLMode:     env("DB_SSLMODE", "disable"),
 		ExecTimeout: 5 * time.Second,
 	}
 }
