@@ -1,5 +1,7 @@
 # Tasks API (Go, net/http)
 
+Practical assignments are implemented in the `master` branch
+
 Minimal backend service for managing tasks (todos).
 
 ## Demo Video
