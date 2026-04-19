@@ -28,7 +28,6 @@ func NewExchangeService(baseURL string) *ExchangeService {
 	}
 }
 
-// GetRate requests the rate. Example URL: /convert?from=USD&to=EUR
 func (s *ExchangeService) GetRate(from, to string) (float64, error) {
 	url := fmt.Sprintf("%s/convert?from=%s&to=%s", s.BaseURL, from, to)
 	resp, err := s.Client.Get(url)

@@ -9,7 +9,6 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
-// ─── GetUserByID ──────────────────────────────────────────────────────────────
 
 func TestGetUserByID(t *testing.T) {
 	ctrl := gomock.NewController(t)
@@ -26,7 +25,6 @@ func TestGetUserByID(t *testing.T) {
 	assert.Equal(t, user, result)
 }
 
-// ─── CreateUser ───────────────────────────────────────────────────────────────
 
 func TestCreateUser(t *testing.T) {
 	ctrl := gomock.NewController(t)
@@ -42,7 +40,6 @@ func TestCreateUser(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-// ─── RegisterUser ─────────────────────────────────────────────────────────────
 
 func TestRegisterUser_UserAlreadyExists(t *testing.T) {
 	ctrl := gomock.NewController(t)
@@ -89,7 +86,6 @@ func TestRegisterUser_RepositoryErrorOnCreate(t *testing.T) {
 	assert.Error(t, err)
 }
 
-// ─── UpdateUserName ───────────────────────────────────────────────────────────
 
 func TestUpdateUserName_EmptyName(t *testing.T) {
 	ctrl := gomock.NewController(t)
@@ -149,7 +145,6 @@ func TestUpdateUserName_UpdateUserFails(t *testing.T) {
 	assert.Error(t, err)
 }
 
-// ─── DeleteUser ───────────────────────────────────────────────────────────────
 
 func TestDeleteUser_AttemptToDeleteAdmin(t *testing.T) {
 	ctrl := gomock.NewController(t)
@@ -169,7 +164,6 @@ func TestDeleteUser_Success(t *testing.T) {
 	mockRepo := repository.NewMockUserRepository(ctrl)
 	svc := NewUserService(mockRepo)
 
-	// Verify that user was actually deleted with correct id
 	mockRepo.EXPECT().DeleteUser(42).Return(nil)
 
 	err := svc.DeleteUser(42)

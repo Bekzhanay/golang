@@ -6,31 +6,26 @@ import (
 	gomock "go.uber.org/mock/gomock"
 )
 
-// MockUserRepository is a mock of UserRepository interface.
 type MockUserRepository struct {
 	ctrl     *gomock.Controller
 	recorder *MockUserRepositoryMockRecorder
 	isgomock struct{}
 }
 
-// MockUserRepositoryMockRecorder is the mock recorder for MockUserRepository.
 type MockUserRepositoryMockRecorder struct {
 	mock *MockUserRepository
 }
 
-// NewMockUserRepository creates a new mock instance.
 func NewMockUserRepository(ctrl *gomock.Controller) *MockUserRepository {
 	mock := &MockUserRepository{ctrl: ctrl}
 	mock.recorder = &MockUserRepositoryMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 	return m.recorder
 }
 
-// CreateUser mocks base method.
 func (m *MockUserRepository) CreateUser(user *User) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateUser", user)
@@ -38,13 +33,11 @@ func (m *MockUserRepository) CreateUser(user *User) error {
 	return ret0
 }
 
-// CreateUser indicates an expected call of CreateUser.
 func (mr *MockUserRepositoryMockRecorder) CreateUser(user any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockUserRepository)(nil).CreateUser), user)
 }
 
-// DeleteUser mocks base method.
 func (m *MockUserRepository) DeleteUser(id int) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteUser", id)
@@ -52,13 +45,11 @@ func (m *MockUserRepository) DeleteUser(id int) error {
 	return ret0
 }
 
-// DeleteUser indicates an expected call of DeleteUser.
 func (mr *MockUserRepositoryMockRecorder) DeleteUser(id any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockUserRepository)(nil).DeleteUser), id)
 }
 
-// GetByEmail mocks base method.
 func (m *MockUserRepository) GetByEmail(email string) (*User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetByEmail", email)
@@ -67,13 +58,11 @@ func (m *MockUserRepository) GetByEmail(email string) (*User, error) {
 	return ret0, ret1
 }
 
-// GetByEmail indicates an expected call of GetByEmail.
 func (mr *MockUserRepositoryMockRecorder) GetByEmail(email any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByEmail", reflect.TypeOf((*MockUserRepository)(nil).GetByEmail), email)
 }
 
-// GetUserByID mocks base method.
 func (m *MockUserRepository) GetUserByID(id int) (*User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUserByID", id)
@@ -82,13 +71,11 @@ func (m *MockUserRepository) GetUserByID(id int) (*User, error) {
 	return ret0, ret1
 }
 
-// GetUserByID indicates an expected call of GetUserByID.
 func (mr *MockUserRepositoryMockRecorder) GetUserByID(id any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserByID", reflect.TypeOf((*MockUserRepository)(nil).GetUserByID), id)
 }
 
-// UpdateUser mocks base method.
 func (m *MockUserRepository) UpdateUser(user *User) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateUser", user)
@@ -96,7 +83,6 @@ func (m *MockUserRepository) UpdateUser(user *User) error {
 	return ret0
 }
 
-// UpdateUser indicates an expected call of UpdateUser.
 func (mr *MockUserRepositoryMockRecorder) UpdateUser(user any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockUserRepository)(nil).UpdateUser), user)

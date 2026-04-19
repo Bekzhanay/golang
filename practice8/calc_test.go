@@ -2,7 +2,6 @@ package main
 
 import "testing"
 
-// ─── Add (from Step 1) ───────────────────────────────────────────────────────
 
 func TestAdd(t *testing.T) {
 	got := Add(2, 3)
@@ -33,7 +32,6 @@ func TestAddTableDriven(t *testing.T) {
 	}
 }
 
-// ─── Subtract ─────────────────────────────────────────────────────────────────
 
 func TestSubtractTableDriven(t *testing.T) {
 	tests := []struct {
@@ -56,7 +54,6 @@ func TestSubtractTableDriven(t *testing.T) {
 	}
 }
 
-// ─── Divide ───────────────────────────────────────────────────────────────────
 
 func TestDivideTableDriven(t *testing.T) {
 	tests := []struct {

@@ -8,8 +8,6 @@ import (
 	"time"
 )
 
-// ─── Success ──────────────────────────────────────────────────────────────────
-
 func TestGetRate_Success(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
@@ -26,8 +24,6 @@ func TestGetRate_Success(t *testing.T) {
 		t.Errorf("expected rate 0.92, got %f", rate)
 	}
 }
-
-// ─── API Business Error (404 / 400 with JSON error) ───────────────────────────
 
 func TestGetRate_APIBusinessError_404(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -63,12 +59,10 @@ func TestGetRate_APIBusinessError_400(t *testing.T) {
 	}
 }
 
-// ─── Malformed JSON ───────────────────────────────────────────────────────────
-
 func TestGetRate_MalformedJSON(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`Internal Server Error`)) // not valid JSON
+		w.Write([]byte(`Internal Server Error`))
 	}))
 	defer server.Close()
 
@@ -82,18 +76,15 @@ func TestGetRate_MalformedJSON(t *testing.T) {
 	}
 }
 
-// ─── Slow Response / Timeout ──────────────────────────────────────────────────
-
 func TestGetRate_Timeout(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Sleep longer than client timeout
 		time.Sleep(200 * time.Millisecond)
 		w.Write([]byte(`{"rate":1.0}`))
 	}))
 	defer server.Close()
 
 	svc := NewExchangeService(server.URL)
-	svc.Client = &http.Client{Timeout: 50 * time.Millisecond} // very short timeout
+	svc.Client = &http.Client{Timeout: 50 * time.Millisecond}
 
 	_, err := svc.GetRate("USD", "EUR")
 	if err == nil {
@@ -103,8 +94,6 @@ func TestGetRate_Timeout(t *testing.T) {
 		t.Errorf("expected 'network error' in error, got: %v", err)
 	}
 }
-
-// ─── Server Panic / 500 Internal Server Error ─────────────────────────────────
 
 func TestGetRate_ServerPanic_500(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -123,12 +112,9 @@ func TestGetRate_ServerPanic_500(t *testing.T) {
 	}
 }
 
-// ─── Empty Body ───────────────────────────────────────────────────────────────
-
 func TestGetRate_EmptyBody(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		// Write nothing — empty body
 	}))
 	defer server.Close()
 
